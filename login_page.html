@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spotify Login / Signup</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="shortcut icon" href="./images/logo_img.png" type="image/spotify-icon">
+     </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", sans-serif;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #121212;
+      color: white;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .crossBtn {
+      display: flex;
+      justify-content: end;
+      margin-bottom: 20px;
+      margin-left: 10px;
+    }
+
+    .crossBtn button {
+      font-size: 23px;
+      color: white;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .container {
+      background-color: #1e1e1e;
+      padding: 30px;
+      border-radius: 10px;
+      width: 320px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0, 255, 100, 0.2);
+    }
+
+    .toggle-buttons {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .toggle-buttons button {
+      flex: 1;
+      padding: 10px;
+      background-color: #2a2a2a;
+      border: none;
+      color: #aaa;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .toggle-buttons button.active {
+      background-color: #1db954;
+      color: black;
+    }
+
+    form {
+      display: none;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    form.active {
+      display: flex;
+    }
+
+    input {
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+    }
+
+    button.submit-btn {
+      background-color: #1db954;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .message {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #1db954;
+    }
+
+    .message.error {
+      color: red;
+    }
+
+    .google-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background-color: #ffffff;
+      color: #000;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .google-btn:hover {
+      background-color: #e6e6e6;
+    }
+
+    .google-btn img.google-logo {
+      width: 20px;
+      height: 20px;
+   
+    }
+  </style>
+
+<body>
+  <div class="container">
+    <div class="crossBtn">
+      <button><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="toggle-buttons">
+      <button id="loginBtn">Login</button>
+      <button id="signupBtn"  class="active" >Signup</button>
+    </div>
+
+    <!-- Login Form -->
+    <form id="loginForm">
+      <input type="email" placeholder="Email" id="loginEmail" required />
+      <input type="password" placeholder="Password" id="loginPassword" required />
+      <button type="submit" class="submit-btn" id="loginSubmitBtn">Login</button>
+    </form>
+
+    <!-- Signup Form -->
+    <form id="signupForm" class="active">
+      <input type="email" placeholder="Email" id="signupEmail" required class="emailinput" />
+      <input type="password" placeholder="Password" id="signupPassword" required class="passwordinput" />
+      <input type="password" placeholder="Confirm Password" id="confirmPassword" required
+        class="confirmpasswordinput" />
+      <button type="submit" class="submit-btn" id="signupSubmitBtn">Signup</button>
+      <button type="submit" id="googleSignInBtn" class="google-btn">
+        <img src="./images/googleimg.png" alt="Google" class="google-logo" />
+        <span>Continue with Google</span>
+      </button>
+
+    </form>
+
+    <div class="message" id="messageBox"></div>
+  </div>
+
+  
+
+</body>
+
+</html>
+
+<script type="module">
+  // --------------- firebase code -------------------
+    let crossBtn = document.querySelector(".crossBtn");
+    const loginBtn = document.getElementById("loginBtn");
+    const signupBtn = document.getElementById("signupBtn");
+    const loginForm = document.getElementById("loginForm");
+    const signupForm = document.getElementById("signupForm");
+    const messageBox = document.getElementById("messageBox");
+    let googleBtn = document.getElementById("googleSignInBtn");
+
+    // Toggle between Login and Signup form
+    loginBtn.addEventListener("click", () => {
+      loginBtn.classList.add("active");
+      signupBtn.classList.remove("active");
+      loginForm.classList.add("active");
+      signupForm.classList.remove("active");
+      messageBox.textContent = "";
+      messageBox.classList.remove("error");
+    });
+
+    signupBtn.addEventListener("click", () => {
+      signupBtn.classList.add("active");
+      loginBtn.classList.remove("active");
+      signupForm.classList.add("active");
+      loginForm.classList.remove("active");
+      messageBox.textContent = "";
+      messageBox.classList.remove("error");
+    });
+    
+    crossBtn.addEventListener("click",()=>{
+      window.location.href = "index.html";
+    })
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyA1sI80NQytaPXpyXWqdlKAgezkayt6bzI",
+      authDomain: "spotify-clone-11d77.firebaseapp.com",
+      projectId: "spotify-clone-11d77",
+      storageBucket: "spotify-clone-11d77.firebasestorage.app",
+      messagingSenderId: "638048051236",
+      appId: "1:638048051236:web:ea0532dd5cd333e77bb8b1"
+    };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth();
+    const provider = new GoogleAuthProvider();
+    const googleAuth = getAuth();
+    googleAuth.languageCode = 'it';
+    provider.setCustomParameters({
+      'login_hint': 'user@example.com'
+    });
+
+
+    // Show message
+    function showMessage(msg, isError = false) {
+      messageBox.textContent = msg;
+      messageBox.classList.toggle("error", isError);
+    }
+
+    function handleFirebaseError(error) {
+      const errorCode = error.code;
+      let msg = " Something went wrong.";
+      if (errorCode === "auth/email-already-in-use") {
+        msg = " Email already in use.";
+      } else if (errorCode === "auth/invalid-email") {
+        msg = " Invalid email address.";
+      } else if (errorCode === "auth/weak-password") {
+        msg = " Password must be at least 6 characters.";
+      } else if (errorCode === "auth/user-not-found") {
+        msg = " No user found.";
+      } else if (errorCode === "auth/wrong-password") {
+        msg = " Wrong password.";
+      } else if (errorCode === "auth/invalid-credential") {
+        msg = " Please check your information";
+      }
+      showMessage(msg, true);
+    };
+
+    // -------------- signup code ------------------------
+    function handleSignup(e) {
+      e.preventDefault();
+      let emailinput = document.querySelector(".emailinput");
+      let passwordinput = document.querySelector(".passwordinput");
+      let confirmpasswordinput = document.querySelector(".confirmpasswordinput");
+      let email = document.querySelector("#signupEmail").value;
+      const password = document.getElementById("signupPassword").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+
+      function clearMessageBox() {
+        messageBox.textContent = "";
+        messageBox.classList.remove("error");
+      }
+
+      if (password !== confirmPassword) {
+        messageBox.textContent = "Passwords do not match!";
+        messageBox.classList.add("error");
+        return;
+      }
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          showMessage("signup successful!");
+          signupForm.reset();
+            window.location.href = "index.html";
+        })
+        .catch((error) => {
+          handleFirebaseError(error);
+        });
+
+    };
+
+    document.getElementById("signupSubmitBtn").addEventListener("click", (e) => {
+      handleSignup(e)
+    });
+
+
+    // ------------- Login code ------------------------
+    function handleLogin(e) {
+      e.preventDefault();
+      let email = document.querySelector("#loginEmail").value;
+      const password = document.getElementById("loginPassword").value;
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          showMessage("Login successful!");
+          loginForm.reset();
+          window.location.href = "index.html";
+        })
+        .catch((error) => {
+          handleFirebaseError(error);
+          console.log(error)
+        });
+    }
+
+    document.getElementById("loginSubmitBtn").addEventListener("click", (e) => {
+      handleLogin(e);
+    })
+
+
+    // ---------------- Login With Google ------------------------
+    function loginWithGoogle(e) {
+      e.preventDefault();
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          const credential = GoogleAuthProvider.credentialFromResult(result);
+          const token = credential.accessToken;
+          const user = result.user;
+          window.location.href = "index.html";
+        }).catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          const email = error.customData.email;
+          const credential = GoogleAuthProvider.credentialFromError(error);
+        });
+    }
+
+    googleBtn.addEventListener("click", (e) => {
+      loginWithGoogle(e);
+    })
+</script>

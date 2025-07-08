@@ -1,0 +1,19 @@
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  font-size: 14px;
+  color: #ccc;
+  text-align: center;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  background-color: #121212;
+  width: 100%;
+  flex-wrap: wrap; /* optional: agar screen choti ho */
+  background-color: #121212;  
+  /* max-height: 82px; */
+  overflow: hidden;
+} 
