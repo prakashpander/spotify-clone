@@ -241,7 +241,11 @@ async function main() {
     if ((currentSongIndex + 1) < songs.length) {
         currentSongIndex += 1;
         playMusic(songs[currentSongIndex]);
-    }
+    };
+       if (currentSongIndex == songs.length - 1) {
+                        iconChange.classList.remove("fa-circle-pause");
+                        iconChange.classList.add("fa-circle-play");
+                }
 });
 
 document.querySelector(".previous").addEventListener("click", () => {
@@ -249,7 +253,11 @@ document.querySelector(".previous").addEventListener("click", () => {
     if ((currentSongIndex - 1) >= 0) {
         currentSongIndex -= 1;
         playMusic(songs[currentSongIndex]);
-    }
+    };
+     if (currentSongIndex == 0) {
+                        iconChange.classList.remove("fa-circle-pause");
+                        iconChange.classList.add("fa-circle-play");
+                }
 });
 
 
