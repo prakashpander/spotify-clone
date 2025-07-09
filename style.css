@@ -433,7 +433,11 @@ body {
         padding: 5px 30px;
         border-radius: 4px;
         z-index: 50;
-        bottom: 0;
+        bottom: 40;
+    }
+    .slidebar{
+        bottom: 23px;
+        z-index: 60;
     }
 
     .songName-info {
