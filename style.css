@@ -381,7 +381,7 @@ body {
         padding: 0;
         height: 100vh;
         transition: left 0.3s ease;
-
+        height: 100dvh;
     }
 
     .card-wraper {
@@ -390,6 +390,7 @@ body {
 
     .right {
         width: 100vw;
+        height: 100dvh;
     }
 
     .menu-btn {
@@ -439,6 +440,9 @@ body {
     .slidebar{
         z-index: 70;
         bottom: 15px;
+    }
+    .left{
+        height: 100dvh;
     }
     .right{
         height: 100dvh;
