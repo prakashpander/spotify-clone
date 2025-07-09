@@ -106,6 +106,13 @@ body {
     font-size: larger;
 }
 
+.song-list-ul li{
+   background-image: url(./images/background_img.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    object-fit: cover;
+}
+
 .cross-btn {
     display: none;
     font-size: 22px;
