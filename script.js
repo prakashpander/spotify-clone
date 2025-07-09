@@ -233,6 +233,9 @@ async function main() {
 
      curentSong.addEventListener("ended", () => {
                 curentSong.currentTime = 0;
+                 iconChange.classList.remove("fa-circle-pause");
+            iconChange.classList.add("fa-circle-play");
+
         })
 
     document.querySelector(".menu-btn").addEventListener("click", () => {
