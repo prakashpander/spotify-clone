@@ -123,8 +123,8 @@ async function main() {
             songs = await getSong(folder);
             playMusic(songs[0], true);
             renderSongList(songs);
-            document.querySelector(".cricle").style.left = "0%";
-            document.querySelector(".fillbar").style.width = "0%";
+            document.querySelector(".cricle").style.left = -0.2 + "%";
+            document.querySelector(".fillbar").style.width = 0 + "%";
             iconChange.classList.remove("fa-circle-pause");
             iconChange.classList.add("fa-circle-play");
             document.querySelector(".left").style.left = "0";
@@ -230,6 +230,10 @@ async function main() {
         document.querySelector(".cricle").style.left = percent + "%";
         document.querySelector(".fillbar").style.width = percent + "%";
     });
+
+     curentSong.addEventListener("ended", () => {
+                curentSong.currentTime = 0;
+        })
 
     document.querySelector(".menu-btn").addEventListener("click", () => {
         document.querySelector(".left").style.left = "0";
