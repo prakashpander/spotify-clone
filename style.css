@@ -426,6 +426,9 @@ body {
 }
 
 @media screen and (max-width: 553px) {
+    .left{
+        z-index: 100;
+    }
     .songbar-info {
         flex-direction: column;
         gap: 0px;
@@ -434,7 +437,7 @@ body {
         z-index: 50;
     }
     .slidebar{
-        z-index: 100;
+        z-index: 70;
         bottom: 15px;
     }
     .right{
