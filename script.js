@@ -5,6 +5,14 @@ let currFolder;
 let songs = [];
 let currentSongIndex = 0;
 
+window.addEventListener("DOMContentLoaded", () => {
+    const leftSidebar = document.querySelector(".left");
+    if (window.innerWidth < 821) {
+        leftSidebar.style.left = "-200%";
+    } else {
+        leftSidebar.style.left = "0";
+    }
+});
 
 let login = document.getElementById("login");
 let signup = document.getElementById("signup");
@@ -136,20 +144,23 @@ async function main() {
         }
     });
 
+
+
+
     document.addEventListener("click", (e) => {
-                if (e.target.closest(".search-btn") && !document.querySelector(".search-input")) {
-                        document.querySelector(".search-btn").innerHTML = `<div class="search-container">
+        if (e.target.closest(".search-btn") && !document.querySelector(".search-input")) {
+            document.querySelector(".search-btn").innerHTML = `<div class="search-container">
                         <li class="top search-btn"><img src="./SVGS/search.svg" alt="home" class="img invert home-top">
                         <input type="text" placeholder="Search song..." class="search-input"></li>
                         <div class="search-cross-btn"><i class="fa-solid fa-xmark remove-search"></i></div>
                         </div>`
-                }
-        });
+        }
+    });
 
-        function renderSongItem(songName) {
-                let songli = document.querySelector(".song-list-ul");
-                songli.innerHTML = "";
-                return `<li>
+    function renderSongItem(songName) {
+        let songli = document.querySelector(".song-list-ul");
+        songli.innerHTML = "";
+        return `<li>
                                 <div class="song-list-desgin">
                                 <div class="music-icon"><i class="fa-solid fa-music"></i></div>
                                 <div class="info">
@@ -163,45 +174,45 @@ async function main() {
                                 </div>
                                 </div>
                                 </li>`
-        }
+    }
 
-        document.addEventListener("click", (e) => {
-                if (e.target.closest(".remove-search")) {
-                        let searchBtn = document.querySelector(".search-btn");
-                        searchBtn.innerHTML = ` <li class="top search-btn"><img src="./SVGS/search.svg" alt="home" class="img invert home-top">
+    document.addEventListener("click", (e) => {
+        if (e.target.closest(".remove-search")) {
+            let searchBtn = document.querySelector(".search-btn");
+            searchBtn.innerHTML = ` <li class="top search-btn"><img src="./SVGS/search.svg" alt="home" class="img invert home-top">
                          Search</li>`
 
-                        let songli = document.querySelector(".song-list-ul");
-                        songli.innerHTML = songs.map(song => {
-                                return renderSongItem(song);
-                                }).join('');
+            let songli = document.querySelector(".song-list-ul");
+            songli.innerHTML = songs.map(song => {
+                return renderSongItem(song);
+            }).join('');
 
-                }
-        });
+        }
+    });
 
 
-        document.addEventListener("keyup", (e) => {
-                if (e.target.classList.contains("search-input")) {
-                        let value = e.target.value.trim().toLowerCase();
-                        let match = songs.find(song => song.trim().toLowerCase().includes(value))
-                        let songli = document.querySelector(".song-list-ul");
+    document.addEventListener("keyup", (e) => {
+        if (e.target.classList.contains("search-input")) {
+            let value = e.target.value.trim().toLowerCase();
+            let match = songs.find(song => song.trim().toLowerCase().includes(value))
+            let songli = document.querySelector(".song-list-ul");
 
-                        if (match) {
-                                songli.innerHTML = renderSongItem(match);
-                        }
-                        else {
-                                songli.innerHTML = match ? renderSongItem(match) : `<li> Please Search in another folder </li>`;
-                        }
-                        if (value === '') {
-                                songli.innerHTML = songs.map(song => {
-                                return renderSongItem(song);
-                                }).join('');
-                                return;
-                        }
-                }
-        });
+            if (match) {
+                songli.innerHTML = renderSongItem(match);
+            }
+            else {
+                songli.innerHTML = match ? renderSongItem(match) : `<li> Please Search in another folder </li>`;
+            }
+            if (value === '') {
+                songli.innerHTML = songs.map(song => {
+                    return renderSongItem(song);
+                }).join('');
+                return;
+            }
+        }
+    });
 
-    
+
 
     curentSong.addEventListener("timeupdate", () => {
         let timeProgress = (curentSong.currentTime / curentSong.duration) * 100;
@@ -236,29 +247,29 @@ async function main() {
         curentSong.currentTime += 10;
     });
 
-   document.querySelector(".next-btn").addEventListener("click", () => {
-    curentSong.pause();
-    if ((currentSongIndex + 1) < songs.length) {
-        currentSongIndex += 1;
-        playMusic(songs[currentSongIndex]);
-    };
-       if (currentSongIndex == songs.length - 1) {
-                        iconChange.classList.remove("fa-circle-pause");
-                        iconChange.classList.add("fa-circle-play");
-                }
-});
+    document.querySelector(".next-btn").addEventListener("click", () => {
+        curentSong.pause();
+        if ((currentSongIndex + 1) < songs.length) {
+            currentSongIndex += 1;
+            playMusic(songs[currentSongIndex]);
+        };
+        if (currentSongIndex == songs.length - 1) {
+            iconChange.classList.remove("fa-circle-pause");
+            iconChange.classList.add("fa-circle-play");
+        }
+    });
 
-document.querySelector(".previous").addEventListener("click", () => {
-    curentSong.pause();
-    if ((currentSongIndex - 1) >= 0) {
-        currentSongIndex -= 1;
-        playMusic(songs[currentSongIndex]);
-    };
-     if (currentSongIndex == 0) {
-                        iconChange.classList.remove("fa-circle-pause");
-                        iconChange.classList.add("fa-circle-play");
-                }
-});
+    document.querySelector(".previous").addEventListener("click", () => {
+        curentSong.pause();
+        if ((currentSongIndex - 1) >= 0) {
+            currentSongIndex -= 1;
+            playMusic(songs[currentSongIndex]);
+        };
+        if (currentSongIndex == 0) {
+            iconChange.classList.remove("fa-circle-pause");
+            iconChange.classList.add("fa-circle-play");
+        }
+    });
 
 
 }

@@ -30,9 +30,10 @@ body {
     padding: 1px;
 }
 
-.search-btn{
+.search-btn {
     cursor: pointer;
 }
+
 .search-container {
     display: flex;
     justify-content: center;
@@ -110,6 +111,7 @@ body {
     font-size: 22px;
     cursor: pointer;
 }
+
 .search-cross-btn {
     margin-top: 5px;
     margin-left: 5px;
@@ -379,6 +381,7 @@ body {
         padding: 0;
         height: 100vh;
         transition: left 0.3s ease;
+
     }
 
     .card-wraper {
@@ -428,16 +431,20 @@ body {
         gap: 0px;
         padding: 5px 30px;
         border-radius: 4px;
+        max-height: 100px;
+        margin-bottom: 10px;
     }
 
     .songName-info {
         width: auto;
         justify-content: center;
     }
-     .card-wraper {
+
+    .card-wraper {
         width: 90%;
     }
 }
+
 @media screen and (max-width: 375px) {
     .left {
         width: auto;
