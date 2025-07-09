@@ -427,17 +427,14 @@ body {
 
 @media screen and (max-width: 553px) {
     .songbar-info {
-        position: absolute;
         flex-direction: column;
-        gap: 0px;
+        gap: 5px;
         padding: 5px 30px;
         border-radius: 4px;
         z-index: 50;
-        bottom: 40;
     }
-    .slidebar{
-        bottom: 23px;
-        z-index: 60;
+    .right{
+        height: 100dvh;
     }
 
     .songName-info {
