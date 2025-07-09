@@ -427,13 +427,13 @@ body {
 
 @media screen and (max-width: 553px) {
     .songbar-info {
-        
+        position: absolute;
         flex-direction: column;
         gap: 0px;
         padding: 5px 30px;
         border-radius: 4px;
         z-index: 50;
-        
+        bottom: 0;
     }
 
     .songName-info {
@@ -443,9 +443,6 @@ body {
 
     .card-wraper {
         width: 90%;
-    }
-    .right{
-        position:fixed;
     }
 }
 
