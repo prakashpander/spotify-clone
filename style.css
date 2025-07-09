@@ -428,10 +428,14 @@ body {
 @media screen and (max-width: 553px) {
     .songbar-info {
         flex-direction: column;
-        gap: 5px;
+        gap: 0px;
         padding: 5px 30px;
         border-radius: 4px;
         z-index: 50;
+    }
+    .slidebar{
+        z-index: 100;
+        bottom: 15px;
     }
     .right{
         height: 100dvh;
